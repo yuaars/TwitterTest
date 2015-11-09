@@ -18,10 +18,15 @@ public class RegisterPage {
     public static final By ACTIVE_PASS_VALIDATION = get("signUp.passValidationMessage");
 
 
-    public static void signUp(String email, String pass) {
+    public static void signUp(String user, String email, String pass) {
+        fillForm(user, email, pass);
+        getDriver().findElement(SIGN_UP_BUTTON).click();
+    }
+
+    public static void fillForm(String user, String email, String pass) {
+        getDriver().findElement(USER_FULL_NAME_FIELD).sendKeys(user);
         getDriver().findElement(EMAIL_FIELD).sendKeys(email);
         getDriver().findElement(PASSWORD_FIELD).sendKeys(pass);
-        getDriver().findElement(SIGN_UP_BUTTON).click();
     }
 
     public static List<WebElement> getValidationMessages(){

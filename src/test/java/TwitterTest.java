@@ -26,7 +26,7 @@ public class TwitterTest {
 
     @Test
     public void signUpTest1(){
-        RegisterPage.signUp("qwerty", "qwerty");
+        //RegisterPage.signUp("qwerty", "qwerty");
         List<WebElement>validations= RegisterPage.getValidationMessages();
         Assert.assertEquals(validations.size(),1);
         WebElement validation =getDriver().findElement(RegisterPage.ACTIVE_EMAIL_VALIDATION);
@@ -38,8 +38,8 @@ public class TwitterTest {
         Assert.assertEquals(RegisterPage.getValidationMessages().size(),1);
     }
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void signUpTes(String email, String pass, String emailValidation, String passValidation) throws IOException {
-        RegisterPage.signUp(email, pass);
+    public void signUpTes(String user, String email, String pass, String emailValidation, String passValidation) throws IOException {
+        RegisterPage.fillForm(user, email, pass);
         int validations = 0;
 
         if (emailValidation.length() > 2) {
