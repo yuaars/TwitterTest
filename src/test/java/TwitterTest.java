@@ -1,5 +1,6 @@
 import helpers.DataProviders;
 import helpers.DriverSingleton;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,30 +16,22 @@ import static helpers.DriverSingleton.getDriver;
 
 public class TwitterTest {
     public static final String BASE_URL = "https://twitter.com/signup";
+
     @BeforeMethod(alwaysRun = true)
     public void setup(){
+
         getDriver().get(BASE_URL);
     }
+
     @AfterMethod(alwaysRun = true)
     public void teardown() {
-        DriverSingleton.quit();
-    }
 
-    @Test
-    public void signUpTest1(){
-        //RegisterPage.signUp("qwerty", "qwerty");
-        List<WebElement>validations= RegisterPage.getValidationMessages();
-        Assert.assertEquals(validations.size(),1);
-        WebElement validation =getDriver().findElement(RegisterPage.ACTIVE_EMAIL_VALIDATION);
-        Assert.assertTrue(validation.isDisplayed());
-        Assert.assertEquals(validation.getText(), "");
+        DriverSingleton.quit();    }
 
 
-//        Assert.assertEquals(validations.get(0).findElement(By.xpath(".//parent::div[@data-fieldname]")));
-        Assert.assertEquals(RegisterPage.getValidationMessages().size(),1);
-    }
+
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void signUpTes(String user, String email, String pass, String emailValidation, String passValidation) throws IOException {
+    public void signUpTest(String user, String email, String pass, String emailValidation, String passValidation) throws IOException {
         RegisterPage.fillForm(user, email, pass);
         int validations = 0;
 
@@ -58,4 +51,47 @@ public class TwitterTest {
 
         Assert.assertEquals(RegisterPage.getValidationMessages().size(), validations);
     }
+
+
+    @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
+    public void weakPasswordTest (String user, String email, String pass, String weakPasswordValidationMessage){
+        WebElement weakPassValidationElement = getDriver().findElement(RegisterPage.WEAK_PASS_VALIDATION);
+        Assert.assertTrue(weakPassValidationElement.isDisplayed());
+        Assert.assertEquals(weakPassValidationElement.getText(),weakPasswordValidationMessage);
+
+    }
+
+
+    @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
+    public void shortPasswordTest(String user, String email, String pass, String shortPasswordValidationMessage){
+        WebElement shortPassValidationElement = getDriver().findElement(RegisterPage.SHORT_PASS_VALIDATION);
+        Assert.assertTrue(shortPassValidationElement.isDisplayed());
+        Assert.assertEquals(shortPassValidationElement.getText(),shortPasswordValidationMessage);
+    }
+
+
+    @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
+    public void phoneNumberTest(String user, String phoneNumber, String pass, String phoneNumberValidation){
+        WebElement phoneNumberValidationElement = getDriver().findElement(RegisterPage.ACTIVE_PHONE_VALIDATION);
+        Assert.assertTrue(phoneNumberValidationElement.isDisplayed());
+        Assert.assertEquals(phoneNumberValidationElement.getText(),phoneNumberValidation);
+    }
+
+
+    @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
+    public void invalidEmailTest(String name, String invalidEmail, String pass, String invalidMailValidation){
+        WebElement invalidEmailValidationElement = getDriver().findElement(RegisterPage.INVALID_EMAIL_VALIDATION);
+        Assert.assertTrue(invalidEmailValidationElement.isDisplayed());
+        Assert.assertEquals(invalidEmailValidationElement.getText(),invalidMailValidation);
+    }
+
+
+    @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
+    public void alreadyBusyEmainTest(String name, String alreadyTakenEmail, String pass, String alreadyTakenEmailValidation){
+        WebElement alreaTakenEmailValidationElement = getDriver().findElement(RegisterPage.ALREADY_TAKEN_EMAIL_VALIDATION);
+        Assert.assertTrue(alreaTakenEmailValidationElement.isDisplayed());
+        Assert.assertEquals(alreaTakenEmailValidationElement.getText(),alreadyTakenEmailValidation);
+    }
+
+
 }

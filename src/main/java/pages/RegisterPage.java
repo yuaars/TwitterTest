@@ -10,12 +10,17 @@ import static helpers.Locators.get;
 public class RegisterPage {
 
     public static final By USER_FULL_NAME_FIELD = get("signUp.userFullNameField");
-    public static final By EMAIL_FIELD = get("signUp.EmailField");
+    public static final By EMAIL_FIELD = get("signUp.EmailOrPhoneField");
     public static final By PASSWORD_FIELD = get("signUp.PasswordField");
     public static final By SIGN_UP_BUTTON = get("signUp.signUpButton");
-    public static final By ALLERT = get("signUp.ActiveValidationMessages");
+    public static final By ALERT = get("signUp.ActiveValidationMessages");
     public static final By ACTIVE_EMAIL_VALIDATION = get("signUp.emailValidationMessage");
     public static final By ACTIVE_PASS_VALIDATION = get("signUp.passValidationMessage");
+    public static final By WEAK_PASS_VALIDATION = get("signUp.weakPassValidationMessage");
+    public static final By SHORT_PASS_VALIDATION = get("signUp.shortPassValidationMessage");
+    public static final By ACTIVE_PHONE_VALIDATION = get("signUp.ActivePhoneValidationMessage");
+    public static final By INVALID_EMAIL_VALIDATION = get("signUp.invalidEmailValidationMessage");
+    public static final By ALREADY_TAKEN_EMAIL_VALIDATION = get("signUp.alreadyTakenMailValidationMessage");
 
 
     public static void signUp(String user, String email, String pass) {
@@ -30,6 +35,7 @@ public class RegisterPage {
     }
 
     public static List<WebElement> getValidationMessages(){
-        return getDriver().findElements(ALLERT);
+
+        return getDriver().findElements(ALERT);
     }
 }

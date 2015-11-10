@@ -1,2 +1,2 @@
-user,valid123421@email.com,pass,,Ваш пароль должен состоять как минимум из 6 символов.
-user,invalid,passwrd123,Введите действительный адрес электронной почты, ,
+user,valid123421@email.com,pass,,Your password must be at least 6 characters.
+user,invalid,passwrd123,Please enter a valid email., ,
