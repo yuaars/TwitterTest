@@ -55,6 +55,7 @@ public class TwitterTest {
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
     public void weakPasswordTest (String user, String email, String pass, String weakPasswordValidationMessage){
+        RegisterPage.fillForm(user, email, pass);
         WebElement weakPassValidationElement = getDriver().findElement(RegisterPage.WEAK_PASS_VALIDATION);
         Assert.assertTrue(weakPassValidationElement.isDisplayed());
         Assert.assertEquals(weakPassValidationElement.getText(),weakPasswordValidationMessage);
@@ -64,6 +65,7 @@ public class TwitterTest {
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
     public void shortPasswordTest(String user, String email, String pass, String shortPasswordValidationMessage){
+        RegisterPage.fillForm(user, email, pass);
         WebElement shortPassValidationElement = getDriver().findElement(RegisterPage.SHORT_PASS_VALIDATION);
         Assert.assertTrue(shortPassValidationElement.isDisplayed());
         Assert.assertEquals(shortPassValidationElement.getText(),shortPasswordValidationMessage);
@@ -71,7 +73,8 @@ public class TwitterTest {
 
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void phoneNumberTest(String user, String phoneNumber, String pass, String phoneNumberValidation){
+    public void phoneNumberTest(String user, String email, String pass, String phoneNumberValidation){
+        RegisterPage.fillForm(user, email, pass);
         WebElement phoneNumberValidationElement = getDriver().findElement(RegisterPage.ACTIVE_PHONE_VALIDATION);
         Assert.assertTrue(phoneNumberValidationElement.isDisplayed());
         Assert.assertEquals(phoneNumberValidationElement.getText(),phoneNumberValidation);
@@ -79,7 +82,8 @@ public class TwitterTest {
 
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void invalidEmailTest(String name, String invalidEmail, String pass, String invalidMailValidation){
+    public void invalidEmailTest(String user, String email, String pass, String invalidMailValidation){
+        RegisterPage.fillForm(user, email, pass);
         WebElement invalidEmailValidationElement = getDriver().findElement(RegisterPage.INVALID_EMAIL_VALIDATION);
         Assert.assertTrue(invalidEmailValidationElement.isDisplayed());
         Assert.assertEquals(invalidEmailValidationElement.getText(),invalidMailValidation);
@@ -87,7 +91,8 @@ public class TwitterTest {
 
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void alreadyBusyEmainTest(String name, String alreadyTakenEmail, String pass, String alreadyTakenEmailValidation){
+    public void alreadyBusyEmainTest(String user, String email, String pass, String alreadyTakenEmailValidation){
+        RegisterPage.fillForm(user, email, pass);
         WebElement alreaTakenEmailValidationElement = getDriver().findElement(RegisterPage.ALREADY_TAKEN_EMAIL_VALIDATION);
         Assert.assertTrue(alreaTakenEmailValidationElement.isDisplayed());
         Assert.assertEquals(alreaTakenEmailValidationElement.getText(),alreadyTakenEmailValidation);
