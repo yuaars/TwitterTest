@@ -1,44 +1,45 @@
 package helpers;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import static helpers.DriverSingleton.getDriver;
+
+
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
+
 public class Helper {
-    public static void check(WebElement checkbox){
+    public static void check(WebElement checkbox) {
 //        if (!checkbox.isSelected()){
 //            checkbox.click();
 //        }
-        setCheckboxTo(checkbox,true);
+        setCheckboxTo(checkbox, true);
     }
 
-    public static void uncheck(WebElement checkbox){
+    public static void uncheck(WebElement checkbox) {
 //        if (checkbox.isSelected()){
 //            checkbox.click();
 //        }
-        setCheckboxTo(checkbox,true);
+        setCheckboxTo(checkbox, true);
     }
 
 
-    private static void setCheckboxTo(WebElement checkbox, boolean value){
-        if (checkbox.isSelected() != value){
+    private static void setCheckboxTo(WebElement checkbox, boolean value) {
+        if (checkbox.isSelected() != value) {
             checkbox.click();
         }
     }
 
-    public static boolean isAlertPresent(WebDriver driver){
+    public static boolean isAlertPresent(WebDriver driver) {
         try {
             Alert alert = driver.switchTo().alert();
             return true;
-        }catch (NoAlertPresentException ex){
+        } catch (NoAlertPresentException ex) {
             return false;
         }
     }
@@ -47,5 +48,14 @@ public class Helper {
         return Files.readAllLines(new File(resourcePath).toPath(), Charset.defaultCharset());
     }
 
+    public static void saveScreenShot(String path) {
 
+        TakesScreenshot screenMaker = (TakesScreenshot) getDriver();
+        File screen = screenMaker.getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screen, new File(path));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }

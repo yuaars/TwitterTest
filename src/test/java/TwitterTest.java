@@ -1,6 +1,6 @@
 import helpers.DataProviders;
 import helpers.DriverSingleton;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import helpers.Helper;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -8,8 +8,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.RegisterPage;
 
+
 import java.io.IOException;
-import java.util.List;
+
 
 import static helpers.DriverSingleton.getDriver;
 
@@ -26,7 +27,8 @@ public class TwitterTest {
     @AfterMethod(alwaysRun = true)
     public void teardown() {
 
-        DriverSingleton.quit();    }
+        DriverSingleton.quit();
+    }
 
 
 
@@ -82,9 +84,10 @@ public class TwitterTest {
 
 
     @Test(dataProvider = "registrationData", dataProviderClass = DataProviders.class)
-    public void invalidEmailTest(String user, String email, String pass, String invalidMailValidation){
+    public void invalidEmailTest(String user, String email, String pass, String invalidMailValidation) throws IOException {
         RegisterPage.fillForm(user, email, pass);
         WebElement invalidEmailValidationElement = getDriver().findElement(RegisterPage.INVALID_EMAIL_VALIDATION);
+        Helper.saveScreenShot("D://PVT/projects/autoScreen.png");
         Assert.assertTrue(invalidEmailValidationElement.isDisplayed());
         Assert.assertEquals(invalidEmailValidationElement.getText(),invalidMailValidation);
     }
