@@ -87,7 +87,8 @@ public class TwitterTest {
     public void invalidEmailTest(String user, String email, String pass, String invalidMailValidation) throws IOException {
         RegisterPage.fillForm(user, email, pass);
         WebElement invalidEmailValidationElement = getDriver().findElement(RegisterPage.INVALID_EMAIL_VALIDATION);
-        Helper.saveScreenShot("D://PVT/projects/autoScreen.png");
+        //Helper.saveScreenShot("D://PVT/projects/autoScreen.png");
+        Helper.saveScreenShot(RegisterPage.ACTIVE_EMAIL_VALIDATION,"D://PVT/projects/autoScreen.png");
         Assert.assertTrue(invalidEmailValidationElement.isDisplayed());
         Assert.assertEquals(invalidEmailValidationElement.getText(),invalidMailValidation);
     }

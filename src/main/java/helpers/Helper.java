@@ -48,14 +48,22 @@ public class Helper {
         return Files.readAllLines(new File(resourcePath).toPath(), Charset.defaultCharset());
     }
 
-    public static void saveScreenShot(String path) {
-
-        TakesScreenshot screenMaker = (TakesScreenshot) getDriver();
+    public static void saveScreenShot(By element, String path) {
+        TakesScreenshot screenMaker = (TakesScreenshot)getDriver().findElement(element);
         File screen = screenMaker.getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screen, new File(path));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-        }
+
+
+    }
+
+   /* TakesScreenshot screenMaker = (TakesScreenshot) getDriver();
+    File screen = screenMaker.getScreenshotAs(OutputType.FILE);
+    try {
+        FileUtils.copyFile(screen, new File(path));
+    } catch (IOException ex) {
+        System.out.println(ex.getMessage());*/
     }
 }

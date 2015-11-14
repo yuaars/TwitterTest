@@ -3,7 +3,9 @@ package helpers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -18,7 +20,7 @@ public class DriverSingleton {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            initDriver("default");
+            initDriver("phantomjs");
         }
         return driver;
     }
@@ -46,6 +48,12 @@ public class DriverSingleton {
                 case "ie":
                     driver = new InternetExplorerDriver();
                     break;
+                case "htmlunit":
+                    driver = new HtmlUnitDriver();
+                case "phantomjs":
+                    driver = new PhantomJSDriver();
+                    break;
+
             }
             }else {
             DesiredCapabilities capabilities;
@@ -61,6 +69,9 @@ public class DriverSingleton {
                     break;
                 case "htmlunit":
                     capabilities = DesiredCapabilities.htmlUnit();
+                    break;
+                case "phantomjs":
+                    capabilities = DesiredCapabilities.phantomjs();
                     break;
                 default:
                     capabilities = DesiredCapabilities.firefox();
